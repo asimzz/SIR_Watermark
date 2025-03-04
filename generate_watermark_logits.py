@@ -1,4 +1,5 @@
 import argparse
+import os
 import numpy as np
 import torch
 from train_watermark_model import TransformModel
@@ -19,6 +20,7 @@ def main(args):
             torch.tensor(embedding_data, device=device, dtype=torch.float32)
         )
         print(watermark_logits)
+        os.makedirs(os.path.dirname(args.output_dir), exist_ok=True)
         np.savetxt(args.output_dir, watermark_logits.cpu())
     return
 
