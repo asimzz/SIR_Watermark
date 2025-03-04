@@ -8,18 +8,24 @@ GEN_DIR=$WORK_DIR/gen
 MODEL_DIR=$WORK_DIR/model
 MODEL_DIR=$WORK_DIR/model
 
-echo "Generating watermark logits for surrogate model from embeddings..."
-
-python3 $WORK_DIR/generate_watermark_logits.py \
-    --original_model $MODEL_DIR/transform_model_cbert.pth \
-    --embedding_data $DATA_DIR/embeddings/train_embeddings.txt \
-    --input_dim 1024 \
-    --output_dir $GEN_DIR/watermark_logits.txt
-
 echo "Training surrogate model with watermark logits..."
 
 python3 $WORK_DIR/surrogate_model/train_surrogate_model.py \
     --embedding_data $DATA_DIR/embeddings/train_embeddings.txt \
-    --watermark_logits $GEN_DIR/watermark_logits.txt \
+    --watermark_logits $GEN_DIR/watermark_logits/train_watermark_logits.txt \
     --output_dir $MODEL_DIR/surrogate_model.pth \
     --epochs 100
+
+echo "Evaluating surrogate model on validation data..."
+
+python3 $WORK_DIR/surrogate_model/evaluate_surrogate_model.py \
+    --embedding_data $DATA_DIR/embeddings/validation_embeddings.txt \
+    --watermark_logits $GEN_DIR/watermark_logits/validation_watermark_logits.txt \
+    --model_path $MODEL_DIR/surrogate_model.pth
+
+echo "Evaluating surrogate model on test data..."
+
+python3 $WORK_DIR/surrogate_model/evaluate_surrogate_model.py \
+    --embedding_data $DATA_DIR/embeddings/test_embeddings.txt \
+    --watermark_logits $GEN_DIR/watermark_logits/test_watermark_logits.txt \
+    --model_path $MODEL_DIR/surrogate_model.pth
