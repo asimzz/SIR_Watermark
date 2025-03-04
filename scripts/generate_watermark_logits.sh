@@ -6,8 +6,6 @@ WORK_DIR=$SCRIPT_DIR/..
 DATA_DIR=$WORK_DIR/data
 GEN_DIR=$WORK_DIR/gen
 TRANSFORM_MODEL_DIR=$WORK_DIR/model
-ATTACK_DIR=$WORK_DIR/attack
-
 
 python $WORK_DIR/generate_watermark_logits.py \
     --original_model $TRANSFORM_MODEL_DIR/transform_model_cbert.pth \
