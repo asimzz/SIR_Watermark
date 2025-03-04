@@ -12,5 +12,5 @@ ATTACK_DIR=$WORK_DIR/attack
 python $WORK_DIR/generate_watermark_logits.py \
     --original_model $TRANSFORM_MODEL_DIR/transform_model_cbert.pth \
     --embedding_data $DATA_DIR/embeddings/train_embeddings.txt \
-    --input_dim 768 \
+    --input_dim 1024 \
     --output_dir $GEN_DIR/watermark_logits.txt \
