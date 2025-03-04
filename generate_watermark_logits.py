@@ -19,10 +19,9 @@ def main(args):
         watermark_logits = model(
             torch.tensor(embedding_data, device=device, dtype=torch.float32)
         )
-        print(watermark_logits)
+
         os.makedirs(os.path.dirname(args.output_dir), exist_ok=True)
         np.savetxt(args.output_dir, watermark_logits.cpu())
-    return
 
 
 if __name__ == "__main__":
