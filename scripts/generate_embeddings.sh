@@ -19,7 +19,7 @@ echo "Generating embeddings for validation data..."
 python3 $WORK_DIR/generate_embeddings.py \
     --input_path $DATA_DIR/sts/validation.jsonl \
     --output_path $DATA_DIR/embeddings/validation_embeddings.txt \
-    --model_path $EMBEDDING_MODEL
+    --model_path $EMBEDDING_MODEL \
     --size 2000
 
 echo "Generating embeddings for test data..."
@@ -27,5 +27,5 @@ echo "Generating embeddings for test data..."
 python3 $WORK_DIR/generate_embeddings.py \
     --input_path $DATA_DIR/sts/test.jsonl \
     --output_path $DATA_DIR/embeddings/test_embeddings.txt \
-    --model_path $EMBEDDING_MODEL
+    --model_path $EMBEDDING_MODEL \
     --size 1000
