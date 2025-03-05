@@ -17,16 +17,15 @@ class WatermarkDataset(Dataset):
     def __getitem__(self, idx):
         return self.embeddings[idx], self.watermarks[idx]
 
-class SurrogateResidualBlock(nn.Module):
+class SimpleBlock(nn.Module):
     def __init__(self, dim):
-        super(SurrogateResidualBlock, self).__init__()
+        super(SimpleBlock, self).__init__()
         self.fc = nn.Linear(dim, dim)
         self.relu = nn.ReLU()
 
     def forward(self, x):
         out = self.fc(x)
         out = self.relu(out)
-        out = out + x  # Residual connection
         return out
 
 class SurrogateWatermarkModel(nn.Module):
@@ -37,7 +36,7 @@ class SurrogateWatermarkModel(nn.Module):
         self.layers.append(nn.Linear(input_dim, hidden_dim))
 
         for _ in range(num_layers - 2):
-            self.layers.append(SurrogateResidualBlock(hidden_dim))
+            self.layers.append(SimpleBlock(hidden_dim))
 
         self.layers.append(nn.Linear(hidden_dim, output_dim))
 

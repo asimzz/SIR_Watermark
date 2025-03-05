@@ -4,14 +4,14 @@ set -u # Treat unset variables as an error when substituting.
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 WORK_DIR=$SCRIPT_DIR/..
 DATA_DIR=$WORK_DIR/data
-EMBEDDING_MODEL=xxx/compositional-bert-large-uncased
+EMBEDDING_MODEL=perceptiveshawty/compositional-bert-large-uncased
 
 echo "Generating embeddings for training data..."
 
 python3 $WORK_DIR/generate_embeddings.py \
     --input_path $DATA_DIR/sts/train.jsonl \
     --output_path $DATA_DIR/embeddings/train_embeddings.txt \
-    --model_path $EMBEDDING_MODEL
+    --model_path $EMBEDDING_MODEL \
     --size 4000
 
 echo "Generating embeddings for validation data..."
